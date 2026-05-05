@@ -1,21 +1,702 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Saqam Sire</title>
-        <style>
-            @font-face {
-                font-family: PP Neue Machina;
-                src: url(PPNeueMachina-PlainRegular.otf);
-            }
-            p {
-                font-family: PP Neue Machina, 'PP Neue Machina Plain Regular';
-            }
-        </style>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    </head>
-    <body>
-        <p style="font-size:150%;">Hello from ivt-25-1!</p>
-        <p style="font-size:125%;">saqa sire</p>
-    </body>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Якутия сквозь века</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --gold: #c9a84c;
+    --ice: #7ab4cc;
+    --text: #d6ccbb;
+    --dim: rgba(214,204,187,0.5);
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#scroller {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    background: #080b12;
+}
+
+#scroller::-webkit-scrollbar {
+    display: none;
+}
+
+#scroller {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.page {
+    width: 100%;
+    height: 100vh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 60px 40px;
+}
+
+.aurora {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#page-counter {
+    position: fixed;
+    top: 24px;
+    right: 28px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: rgba(201,168,76,0.6);
+    z-index: 1000;
+}
+
+#dot-nav {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot.active {
+    background: var(--gold);
+    box-shadow: 0 0 8px rgba(201,168,76,0.6);
+}
+
+.scroll-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.4;
+    animation: hintPulse 2.5s ease-in-out infinite;
+    z-index: 10;
+}
+
+.scroll-hint span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+}
+
+.hint-arrow {
+    width: 14px;
+    height: 14px;
+    border-right: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    transform: rotate(45deg);
+}
+
+@keyframes hintPulse {
+    0%,100%{opacity:.3;transform:translateX(-50%) translateY(0)} 50%{opacity:.6;transform:translateX(-50%) translateY(5px)}
+}
+
+.page:last-child .scroll-hint {
+    display: none;
+}
+
+/* HERO */
+#p0 {
+    background: #080b12;
+    text-align: center;
+}
+
+#p0 .aurora {
+    background: radial-gradient(ellipse 100% 60% at 50% 0%,rgba(20,70,50,.5) 0%,transparent 70%),radial-gradient(ellipse 80% 40% at 30% 0%,rgba(30,60,100,.35) 0%,transparent 60%),radial-gradient(ellipse 60% 30% at 70% 5%,rgba(80,20,80,.25) 0%,transparent 60%);
+    animation: auroraShift 10s ease-in-out infinite alternate;
+}
+
+@keyframes auroraShift {
+    0%{opacity:.7;filter:blur(30px)} 100%{opacity:1;filter:blur(50px)}
+}
+
+.hero-eyebrow {
+    position:relative;
+    z-index:1;
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:.4em;
+    font-size:.8rem;
+    color:var(--gold);
+    opacity:.8;
+    margin-bottom:20px;
+    animation:fadeUp 1s ease .3s both;
+}
+
+.hero-title {
+    position:relative;
+    z-index:1;
+    font-family:'Playfair Display',serif;
+    font-weight:900;
+    font-size:clamp(3.5rem,12vw,8rem);
+    line-height:.9;
+    color:#fff;
+    text-shadow:0 0 100px rgba(201,168,76,.25);
+    animation:fadeUp 1s ease .5s both;
+}
+
+.hero-title em {
+    display:block;
+    color:var(--gold);
+    font-style:normal;
+}
+
+.hero-sub {
+    position:relative;
+    left:125px;
+    z-index:1;
+    font-family:'Crimson Pro',serif;
+    font-style:italic;
+    font-size:clamp(1rem,2vw,1.3rem);
+    color:var(--ice);
+    opacity:.8;
+    margin-top:24px;
+    max-width:500px;
+    line-height:1.65;
+    animation:fadeUp 1s ease .7s both;
+}
+
+/* FACTS */
+#p1 {
+    background: #09101a;
+}
+
+#p1 .aurora {
+    background: radial-gradient(ellipse 120% 50% at 50% 100%,rgba(20,50,90,.4) 0%,transparent 70%);
+}
+
+.facts-title {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:1.1rem;
+    letter-spacing:.4em;
+    color:var(--gold);
+    opacity:.7;
+    margin-bottom:50px;
+    position:relative;
+    z-index:1;
+    text-align:center;
+}
+
+.facts-grid {
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:2px;
+    width:100%;
+    max-width:900px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:6px;
+    overflow:hidden;
+}
+
+.fact {
+    background:rgba(10,15,25,.9);
+    padding:32px 20px;
+    text-align:center;
+}
+
+.fact-num {
+    display:block;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(2.2rem,4vw,3rem);
+    color:var(--gold);
+    line-height:1;
+}
+
+.fact-label {
+    font-family:'Crimson Pro',serif;
+    font-size:.9rem;
+    color:var(--dim);
+    margin-top:8px;
+    line-height:1.5;
+}
+
+/* EPOCH PAGES */
+.epoch-page {
+    align-items:flex-start;
+    padding:0;
+}
+
+.epoch-split {
+    position:relative;
+    z-index:1;
+    width:100%;
+    height:100%;
+    display:grid;
+    grid-template-columns:320px 1fr;
+}
+
+.epoch-left {
+    border-right:1px solid rgba(255,255,255,.06);
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:50px 36px;
+    position:relative;
+    overflow:hidden;
+}
+
+.epoch-num {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(5rem,14vw,10rem);
+    line-height:1;
+    color:rgba(255,255,255,.04);
+    position:absolute;
+    top:20px;
+    left:20px;
+    user-select:none;
+}
+
+.epoch-period {
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:.3em;
+    font-size:.75rem;
+    margin-bottom:10px;
+}
+
+.epoch-name {
+    font-family:'Playfair Display',serif;
+    font-weight:700;
+    font-size:clamp(1.4rem,2.5vw,2rem);
+    color:#fff;
+    line-height:1.2;
+    margin-bottom:24px;
+}
+
+.epoch-desc {
+    font-family:'Crimson Pro',serif;
+    font-weight:300;
+    font-size:.95rem;
+    color:var(--dim);
+    line-height:1.8;
+}
+
+.epoch-right {
+    padding:40px 50px 40px 36px;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    justify-content:center;
+}
+
+.epoch-right::-webkit-scrollbar {
+    width:3px;
+}
+
+.epoch-right::-webkit-scrollbar-thumb {
+    background:rgba(255,255,255,.1);
+}
+
+.event {
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:4px;
+    background:rgba(10,15,25,.7);
+    cursor:pointer;
+    transition:border-color .2s,background .2s;
+    overflow:hidden;
+}
+
+.event:hover {
+    background:rgba(15,22,38,.9);
+}
+
+.event.open {
+    border-color:var(--accent);
+}
+
+.event-head {
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:13px 18px;
+}
+
+.event-year {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:1rem;
+    letter-spacing:.05em;
+    min-width:55px;
+    flex-shrink:0;
+}
+
+.event-title {
+    font-family:'Crimson Pro',serif;
+    font-size:1rem;
+    font-weight:400;
+    color:var(--text);
+    flex:1;
+    line-height:1.3;
+}
+
+.event-arrow {
+    font-size:.6rem;
+    color:rgba(255,255,255,.25);
+    flex-shrink:0;
+    transition:transform .25s;
+}
+
+.event.open .event-arrow {
+    transform:rotate(180deg);
+}
+
+.event-body {
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .4s cubic-bezier(.4,0,.2,1);
+}
+
+.event.open .event-body {
+    max-height:200px;
+}
+
+.event-text {
+    padding:0 18px 16px 89px;
+    font-family:'Crimson Pro',serif;
+    font-size:.92rem;
+    font-weight:300;
+    line-height:1.75;
+    color:rgba(214,204,187,.75);
+}
+
+/* EPOCH THEMES */
+#p2{--accent:#c9a84c} #p2 .aurora{background:radial-gradient(ellipse 100% 80% at 0% 50%,rgba(100,70,10,.2) 0%,transparent 60%)} #p2 .epoch-period{color:#c9a84c} #p2 .event-year{color:#c9a84c}
+#p3{--accent:#7ab4cc} #p3 .aurora{background:radial-gradient(ellipse 100% 80% at 0% 50%,rgba(10,60,100,.2) 0%,transparent 60%)} #p3 .epoch-period{color:#7ab4cc} #p3 .event-year{color:#7ab4cc}
+#p4{--accent:#d05555} #p4 .aurora{background:radial-gradient(ellipse 100% 80% at 0% 50%,rgba(100,15,15,.2) 0%,transparent 60%)} #p4 .epoch-period{color:#d05555} #p4 .event-year{color:#d05555}
+#p5{--accent:#4db87a} #p5 .aurora{background:radial-gradient(ellipse 100% 80% at 0% 50%,rgba(10,90,40,.2) 0%,transparent 60%)} #p5 .epoch-period{color:#4db87a} #p5 .event-year{color:#4db87a}
+/* OUTRO */
+#p6 {
+    background:#070a10;
+    text-align:center;
+}
+#p6 .aurora {
+    background:radial-gradient(ellipse 120% 70% at 50% 100%,rgba(30,20,60,.5) 0%,transparent 70%);
+}
+
+.outro-label {
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:.4em;
+    font-size:.75rem;
+    color:var(--gold);
+    opacity:.6;
+    margin-bottom:20px;
+    position:relative;
+    z-index:1;
+}
+
+.outro-title {
+    font-family:'Playfair Display',serif;
+    font-weight:900;
+    font-size:clamp(1.8rem,5vw,3.5rem);
+    color:#fff;
+    line-height:1.2;
+    max-width:700px;
+    position:relative;
+    z-index:1;
+    margin-bottom:30px;
+}
+
+.outro-body {
+    font-family:'Crimson Pro',serif;
+    font-style:italic;
+    font-size:clamp(.95rem,1.5vw,1.15rem);
+    color:var(--dim);
+    max-width:560px;
+    line-height:1.8;
+    position:relative;
+    z-index:1;
+    margin-bottom:50px;
+}
+
+.outro-footer {
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:.2em;
+    font-size:.7rem;
+    color:rgba(255,255,255,.2);
+    position:relative;
+    z-index:1;
+}
+
+.outro-footer strong {
+    color:var(--gold);
+    opacity:.6;
+}
+
+@keyframes fadeUp {
+    from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)}
+}
+
+.page-content {
+    opacity:0;
+    transition:opacity .6s ease,transform .6s ease;
+    transform:translateY(20px);
+}
+
+.page.visible .page-content {
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* FOOTER LINKS */
+.footer-links {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-links a {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    margin: 0 10px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.footer-links img {
+    filter: invert(1) brightness(1.2);
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+html[data-theme="dark"] .footer-links img { filter: invert(1) brightness(1.2); opacity: 0.7; }
+html[data-theme="light"] .footer-links img { filter: invert(1) brightness(0.6); opacity: 0.6; }
+html[data-theme="dark"] .footer-links a:hover img { filter: invert(1) brightness(1.5); opacity: 1; }
+html[data-theme="light"] .footer-links a:hover img { filter: invert(1) brightness(0.4); opacity: 1; }
+
+@media(max-width:700px){
+    .epoch-split{grid-template-columns:1fr;}
+    .epoch-left{border-right:none;border-bottom:1px solid rgba(255,255,255,.06);padding:24px;justify-content:flex-start;}
+    .epoch-right{padding:20px;}
+    .facts-grid{grid-template-columns:1fr 1fr;}
+    .event-text{padding-left:20px;}
+}
+</style>
+</head>
+<body>
+<div id="dot-nav"></div>
+<div id="page-counter">01 / 07</div>
+<div id="scroller">
+
+  <section class="page" id="p0" data-label="Обложка">
+    <div class="aurora"></div>
+    <div class="page-content" style="text-align:center;position:relative;z-index:1;">
+      <p class="hero-eyebrow">История России · Интерактивный проект</p>
+      <h1 class="hero-title">Якутия<em>сквозь века</em></h1>
+      <p class="hero-sub">От первых казацких острогов до алмазной державы — четыре эпохи одного края на краю земли</p>
+    </div>
+    <div class="scroll-hint"><span>листать</span><div class="hint-arrow"></div></div>
+  </section>
+
+  <section class="page" id="p1" data-label="Факты">
+    <div class="aurora"></div>
+    <div class="page-content" style="width:100%;max-width:960px;text-align:center;position:relative;z-index:1;">
+      <p class="facts-title">Якутия в цифрах</p>
+      <div class="facts-grid">
+        <div class="fact"><span class="fact-num">3,1</span><div class="fact-label">млн км²<br>крупнейший регион России</div></div>
+        <div class="fact"><span class="fact-num">1632</span><div class="fact-label">год основания<br>Якутского острога</div></div>
+        <div class="fact"><span class="fact-num">27%</span><div class="fact-label">мировой добычи<br>алмазов</div></div>
+        <div class="fact"><span class="fact-num">−71°</span><div class="fact-label">°C минимум<br>в Оймяконе</div></div>
+        <div class="fact"><span class="fact-num">120+</span><div class="fact-label">народов<br>и этносов</div></div>
+      </div>
+    </div>
+    <div class="scroll-hint"><span>далее</span><div class="hint-arrow"></div></div>
+  </section>
+
+  <section class="page epoch-page" id="p2" data-label="Казаки">
+    <div class="aurora"></div>
+    <div class="epoch-split page-content">
+      <div class="epoch-left">
+        <div class="epoch-num">I</div>
+        <div class="epoch-period">1620 — 1700</div>
+        <div class="epoch-name">Казаки<br>и покорение Севера</div>
+        <p class="epoch-desc">Русские землепроходцы достигли Лены в поисках пушнины. За несколько десятилетий выстроилась сеть острогов — форпостов продвижения России на северо-восток Азии.</p>
+      </div>
+      <div class="epoch-right">
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1620</span><span class="event-title">Первые казачьи отряды на Лене</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Казаки под руководством Пянды спустились по Лене. Местный народ саха уже имел сложную социальную организацию: тойоны (князья), скотоводство, кузнечное ремесло. Встреча двух миров была напряжённой.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1632</span><span class="event-title">Основание Якутского острога</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Атаман Пётр Бекетов заложил Ленский острог. Эта дата считается днём рождения Якутска и официальной датой вхождения Якутии в состав России.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1638</span><span class="event-title">Образование Якутского уезда</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Москва официально учредила Якутский уезд с назначенным воеводой. Острог превратился в административный центр огромных северных территорий.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1643–1648</span><span class="event-title">Экспедиции Пояркова и Дежнёва</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Из Якутска вышли экспедиции к Амуру и Тихому океану. В 1648 году Семён Дежнёв открыл пролив между Азией и Америкой. Якутск стал стартовой точкой всего русского Дальнего Востока.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1633–1684</span><span class="event-title">Семь восстаний народа саха</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">По данным летописей, якуты подняли не менее семи вооружённых восстаний против злоупотреблений ясачных сборщиков. Крупнейшее — осада острога в 1634 году отрядом до 1000 человек.</p></div></div>
+      </div>
+    </div>
+    <div class="scroll-hint"><span>далее</span><div class="hint-arrow"></div></div>
+  </section>
+
+  <section class="page epoch-page" id="p3" data-label="Империя">
+    <div class="aurora"></div>
+    <div class="epoch-split page-content">
+      <div class="epoch-left">
+        <div class="epoch-num">II</div>
+        <div class="epoch-period">1700 — 1917</div>
+        <div class="epoch-name">Якутия в составе Российской империи</div>
+        <p class="epoch-desc">Научные экспедиции, христианизация и политическая ссылка — три главных лейтмотива имперского периода. Якутия стала местом, куда ссылали самых опасных противников режима.</p>
+      </div>
+      <div class="epoch-right">
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1725–1743</span><span class="event-title">Великая Северная экспедиция</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">По указу Петра I Якутск стал главной базой грандиозной экспедиции. Учёные картографировали арктическое побережье, описывали природу и народы края. Тысячи километров Сибири впервые попали на точные карты.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1743</span><span class="event-title">Якутск — официальный город</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Якутск получил статус города и герб: два мамонта, несущих щит. Слоновая кость мамонта из вечной мерзлоты стала ценным экспортным товаром взамен оскудевших меховых ресурсов.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">XVIII в.</span><span class="event-title">Массовая христианизация края</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Православные миссионеры обратили большинство коренного населения. Одновременно создавалась письменность на якутском языке и открывались первые школы.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">XIX в.</span><span class="event-title">Якутия — край политической ссылки</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Декабристы, польские повстанцы, народники, будущие большевики прошли через Якутию. Ссыльный Вацлав Серошевский написал фундаментальный труд о народе саха, Пекарский — словарь якутского языка.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1889</span><span class="event-title">«Якутская трагедия»</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Группа политических ссыльных-народовольцев вступила в вооружённое столкновение с администрацией. Часть расстреляна, часть отправлена на каторгу. Событие потрясло революционные круги всей России.</p></div></div>
+      </div>
+    </div>
+    <div class="scroll-hint"><span>далее</span><div class="hint-arrow"></div></div>
+  </section>
+
+  <section class="page epoch-page" id="p4" data-label="Советская эпоха">
+    <div class="aurora"></div>
+    <div class="epoch-split page-content">
+      <div class="epoch-left">
+        <div class="epoch-num">III</div>
+        <div class="epoch-period">1917 — 1991</div>
+        <div class="epoch-name">Советская Якутия</div>
+        <p class="epoch-desc">Автономия и культурный подъём — и одновременно ГУЛАГ и принудительный труд. Открытие алмазов превратило республику в стратегическую ресурсную базу СССР.</p>
+      </div>
+      <div class="epoch-right">
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1922</span><span class="event-title">Образование Якутской АССР</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">27 апреля 1922 года ВЦИК принял постановление об ЯАССР. Первое правительство возглавил Платон Ойунский. Якутский язык получил государственный статус, расцвела национальная культура.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1930-е</span><span class="event-title">ГУЛАГ и Колымские лагеря</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Сеть лагерей (Индигирлаг, Янлаг и другие) накрыла республику. Сотни тысяч заключённых добывали золото и уголь в условиях арктического холода. Колыма стала синонимом ГУЛАГа.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1941–1945</span><span class="event-title">Якутия в годы Великой Отечественной</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">На фронт ушло более 60 тысяч якутян, половина не вернулась. Через республику проходила трасса «Алсиб» — по ней перегоняли около 8 тысяч американских самолётов по ленд-лизу.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1954</span><span class="event-title">Открытие кимберлитовой трубки «Мир»</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Геологи Попугаева и Хабардин обнаружили первые алмазы. В Москву ушла телеграмма: «Закурили трубку мира, табак отличный». СССР стал мировым лидером по добыче алмазов.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1970–80-е</span><span class="event-title">Промышленный расцвет и экология</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Строились города Мирный, Нерюнгри, Удачный. Промышленность выросла в 40 раз. Но загрязнялись реки, нарушалась вечная мерзлота и уничтожались традиционные угодья коренных народов.</p></div></div>
+      </div>
+    </div>
+    <div class="scroll-hint"><span>далее</span><div class="hint-arrow"></div></div>
+  </section>
+
+  <section class="page epoch-page" id="p5" data-label="Наше время">
+    <div class="aurora"></div>
+    <div class="epoch-split page-content">
+      <div class="epoch-left">
+        <div class="epoch-num">IV</div>
+        <div class="epoch-period">1991 — сегодня</div>
+        <div class="epoch-name">Республика Саха (Якутия)</div>
+        <p class="epoch-desc">Алмазная держава, самобытный кинематограф и климатический кризис. Якутия сегодня — регион острых контрастов между древними традициями и высокими технологиями.</p>
+      </div>
+      <div class="epoch-right">
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1990–1992</span><span class="event-title">Декларация о суверенитете и переименование</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">В 1990 году принята Декларация о государственном суверенитете. В 1992 году республика переименована в Республику Саха (Якутия) — впервые историческое самоназвание народа вошло в официальное название.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1992</span><span class="event-title">Создание АЛРОСА</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Основана алмазодобывающая компания АЛРОСА — совместное владение России и республики. Сегодня обеспечивает около 27% мировой добычи алмазов, являясь крупнейшим в мире производителем.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">2000-е</span><span class="event-title">Феномен «Сахавуд»</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Якутское кино на родном языке начало побеждать на международных фестивалях. Малобюджетные фильмы режиссёров как Дмитрий Давыдов получили признание в Европе и Азии.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">2019–2021</span><span class="event-title">Катастрофические лесные пожары</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">В 2021 году выгорело свыше 8 млн гектаров — рекорд в истории. Дым дошёл до Северного полюса. Таяние вечной мерзлоты разрушает здания и дороги. Якутия — на переднем крае климатического кризиса.</p></div></div>
+        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">Сегодня</span><span class="event-title">Якутия: между прошлым и будущим</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Древние традиции народа саха, алмазная промышленность, развитие IT и кинематограф мирового уровня — всё это сосуществует в самом холодном обитаемом крае Земли.</p></div></div>
+      </div>
+    </div>
+    <div class="scroll-hint"><span>далее</span><div class="hint-arrow"></div></div>
+  </section>
+
+  <section class="page" id="p6" data-label="Итог">
+    <div class="aurora"></div>
+    <div class="page-content" style="display:flex;flex-direction:column;align-items:center;position:relative;z-index:1;">
+      <p class="outro-label">Якутия сквозь века</p>
+      <h2 class="outro-title">Самый холодный<br>обитаемый край Земли</h2>
+      <p class="outro-body">Почти четыре столетия в составе России — от казачьего острога до алмазной державы. История Якутии — это история о том, как суровый северный край стал неотъемлемой частью великой страны.</p>
+      <p class="outro-footer">Институт математики и информатики</p>
+      <p class="outro-footer">Борисов, Бурнашев, Соловьев</p>
+    </div>
+    <div class="footer-links">
+            <a href="https://github.com/rslvvr/saqamsire" target="_blank" rel="noopener noreferrer" title="GitHub">
+                <img src="attributes/github.png" alt="GitHub" />
+            </a>
+        </div>
+  </section>
+
+</div>
+
+<script>
+const pages = [...document.querySelectorAll('.page')];
+const scroller = document.getElementById('scroller');
+const counter = document.getElementById('page-counter');
+const dotNav = document.getElementById('dot-nav');
+const total = pages.length;
+
+pages.forEach((p, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.title = p.dataset.label || '';
+  d.onclick = () => p.scrollIntoView({ behavior: 'smooth' });
+  dotNav.appendChild(d);
+});
+const dots = [...dotNav.querySelectorAll('.dot')];
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const i = pages.indexOf(e.target);
+    if (i < 0) return;
+    counter.textContent = String(i+1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+    dots.forEach((d,j) => d.classList.toggle('active', j === i));
+    e.target.classList.add('visible');
+  });
+}, { root: scroller, threshold: 0.6 });
+
+pages.forEach(p => io.observe(p));
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+    const cur = Math.round(scroller.scrollTop / window.innerHeight);
+    if (cur < total - 1) pages[cur + 1].scrollIntoView({ behavior: 'smooth' });
+  }
+  if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+    const cur = Math.round(scroller.scrollTop / window.innerHeight);
+    if (cur > 0) pages[cur - 1].scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+function toggle(el) {
+  const open = el.classList.contains('open');
+  el.closest('.epoch-right').querySelectorAll('.event.open').forEach(e => e.classList.remove('open'));
+  if (!open) el.classList.add('open');
+}
+</script>
+</body>
 </html>
