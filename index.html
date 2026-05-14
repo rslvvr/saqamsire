@@ -148,8 +148,19 @@ html, body {
 
 /* HERO */
 #p0 {
-    background: #080b12;
-    text-align: center;
+  background: #080b12;
+  text-align: center;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/b/ba/Lena_Pillars_20050716_16.JPG?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original');
+  background-size: cover;
+  background-position: center;
+}
+
+#p0::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 0;
 }
 
 #p0 .aurora {
@@ -204,6 +215,8 @@ html, body {
     max-width:500px;
     line-height:1.65;
     animation:fadeUp 1s ease .7s both;
+    /* margin-left: auto; */
+    margin-right: auto;
 }
 
 /* FACTS */
@@ -330,6 +343,10 @@ html, body {
     flex-direction:column;
     gap:8px;
     justify-content:center;
+    position: relative;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.6s ease;
 }
 
 .epoch-right::-webkit-scrollbar {
@@ -338,6 +355,30 @@ html, body {
 
 .epoch-right::-webkit-scrollbar-thumb {
     background:rgba(255,255,255,.1);
+}
+
+.epoch-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 12, 20, 0.65);
+  z-index: 0;
+  transition: opacity 0.4s ease;
+}
+
+.epoch-right .event {
+  position: relative;
+  z-index: 1;
+}
+
+.epoch-right-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  z-index: 0;
 }
 
 .event {
@@ -463,7 +504,7 @@ html, body {
 .outro-footer {
     font-family:'Bebas Neue',sans-serif;
     letter-spacing:.2em;
-    font-size:.7rem;
+    font-size:1rem;
     color:rgba(255,255,255,.2);
     position:relative;
     z-index:1;
@@ -573,11 +614,12 @@ html[data-theme="light"] .footer-links a:hover img { filter: invert(1) brightnes
         <p class="epoch-desc">Русские землепроходцы достигли Лены в поисках пушнины. За несколько десятилетий выстроилась сеть острогов — форпостов продвижения России на северо-восток Азии.</p>
       </div>
       <div class="epoch-right">
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1620</span><span class="event-title">Первые казачьи отряды на Лене</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Казаки под руководством Пянды спустились по Лене. Местный народ саха уже имел сложную социальную организацию: тойоны (князья), скотоводство, кузнечное ремесло. Встреча двух миров была напряжённой.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1632</span><span class="event-title">Основание Якутского острога</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Атаман Пётр Бекетов заложил Ленский острог. Эта дата считается днём рождения Якутска и официальной датой вхождения Якутии в состав России.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1638</span><span class="event-title">Образование Якутского уезда</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Москва официально учредила Якутский уезд с назначенным воеводой. Острог превратился в административный центр огромных северных территорий.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1643–1648</span><span class="event-title">Экспедиции Пояркова и Дежнёва</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Из Якутска вышли экспедиции к Амуру и Тихому океану. В 1648 году Семён Дежнёв открыл пролив между Азией и Америкой. Якутск стал стартовой точкой всего русского Дальнего Востока.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1633–1684</span><span class="event-title">Семь восстаний народа саха</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">По данным летописей, якуты подняли не менее семи вооружённых восстаний против злоупотреблений ясачных сборщиков. Крупнейшее — осада острога в 1634 году отрядом до 1000 человек.</p></div></div>
+        <div class="epoch-right-bg"></div>
+        <div class="event" data-image="https://cdnstatic.rg.ru/uploads/images/2024/08/23/1_0b9.jpg" onclick="toggle(this)"><div class="event-head"><span class="event-year">1620</span><span class="event-title">Первые казачьи отряды на Лене</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Казаки под руководством Пянды спустились по Лене. Местный народ саха уже имел сложную социальную организацию: тойоны (князья), скотоводство, кузнечное ремесло. Встреча двух миров была напряжённой.</p></div></div>
+        <div class="event" data-image="https://kazachestvo.ru/img/07e7/05/13/428810_0:0:1489:837_2072x0_60_0_0_f44fce7d3a1211da2c1fe951c4464e66.png" onclick="toggle(this)"><div class="event-head"><span class="event-year">1632</span><span class="event-title">Основание Якутского острога</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Атаман Пётр Бекетов заложил Ленский острог. Эта дата считается днём рождения Якутска и официальной датой вхождения Якутии в состав России.</p></div></div>
+        <div class="event" data-image="https://upload.wikimedia.org/wikipedia/commons/1/19/%D0%AF%D0%BA%D1%83%D1%82%D1%81%D0%BA%D0%B8%D0%B9_%D0%BE%D1%81%D1%82%D1%80%D0%BE%D0%B3_1902_%D0%B3%D0%BE%D0%B4.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" onclick="toggle(this)"><div class="event-head"><span class="event-year">1638</span><span class="event-title">Образование Якутского уезда</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Москва официально учредила Якутский уезд с назначенным воеводой. Острог превратился в административный центр огромных северных территорий.</p></div></div>
+        <div class="event" data-image="https://cdn-s-static.arzamas.academy/uploads/ckeditor/pictures/16952/content_dezhnev.jpg" onclick="toggle(this)"><div class="event-head"><span class="event-year">1643–1648</span><span class="event-title">Экспедиции Пояркова и Дежнёва</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Из Якутска вышли экспедиции к Амуру и Тихому океану. В 1648 году Семён Дежнёв открыл пролив между Азией и Америкой. Якутск стал стартовой точкой всего русского Дальнего Востока.</p></div></div>
+        <!-- <div class="event" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/.../photo.jpg" onclick="toggle(this)"><div class="event-head"><span class="event-year">1633–1684</span><span class="event-title">Семь восстаний народа саха</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">По данным летописей, якуты подняли не менее семи вооружённых восстаний против злоупотреблений ясачных сборщиков. Крупнейшее — осада острога в 1634 году отрядом до 1000 человек.</p></div></div> -->
       </div>
     </div>
     <div class="scroll-hint"><span>далее</span><div class="hint-arrow"></div></div>
@@ -593,11 +635,12 @@ html[data-theme="light"] .footer-links a:hover img { filter: invert(1) brightnes
         <p class="epoch-desc">Научные экспедиции, христианизация и политическая ссылка — три главных лейтмотива имперского периода. Якутия стала местом, куда ссылали самых опасных противников режима.</p>
       </div>
       <div class="epoch-right">
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1725–1743</span><span class="event-title">Великая Северная экспедиция</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">По указу Петра I Якутск стал главной базой грандиозной экспедиции. Учёные картографировали арктическое побережье, описывали природу и народы края. Тысячи километров Сибири впервые попали на точные карты.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1743</span><span class="event-title">Якутск — официальный город</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Якутск получил статус города и герб: два мамонта, несущих щит. Слоновая кость мамонта из вечной мерзлоты стала ценным экспортным товаром взамен оскудевших меховых ресурсов.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">XVIII в.</span><span class="event-title">Массовая христианизация края</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Православные миссионеры обратили большинство коренного населения. Одновременно создавалась письменность на якутском языке и открывались первые школы.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">XIX в.</span><span class="event-title">Якутия — край политической ссылки</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Декабристы, польские повстанцы, народники, будущие большевики прошли через Якутию. Ссыльный Вацлав Серошевский написал фундаментальный труд о народе саха, Пекарский — словарь якутского языка.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1889</span><span class="event-title">«Якутская трагедия»</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Группа политических ссыльных-народовольцев вступила в вооружённое столкновение с администрацией. Часть расстреляна, часть отправлена на каторгу. Событие потрясло революционные круги всей России.</p></div></div>
+        <div class="epoch-right-bg"></div>
+        <div class="event" data-image="https://upload.wikimedia.org/wikipedia/commons/a/ab/%D0%9A%D0%B0%D1%80%D1%82%D0%B0_%D0%BF%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D1%8F%D1%8E%D1%89%D0%B0%D1%8F_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B5%D1%82%D0%B5%D0%BD%D0%B8%D1%8F_%D1%80%D0%BE%D1%81%D1%81%D0%B8%D0%B9%D1%81%D0%BA%D0%B8%D0%BC%D0%B8_%D0%BC%D0%BE%D1%80%D0%B5%D0%BF%D0%BB%D0%B0%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F%D0%BC%D0%B8_%D0%BD%D0%B0_%D1%81%D0%B5%D0%B2%D0%B5%D1%80%D0%BD%D0%BE%D0%B9_%D1%87%D0%B0%D1%81%D1%82%D0%B8_%D0%90%D0%BC%D0%B5%D1%80%D0%B8%D0%BA%D0%B8._1773.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" onclick="toggle(this)"><div class="event-head"><span class="event-year">1725–1743</span><span class="event-title">Великая Северная экспедиция</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">По указу Петра I Якутск стал главной базой грандиозной экспедиции. Учёные картографировали арктическое побережье, описывали природу и народы края. Тысячи километров Сибири впервые попали на точные карты.</p></div></div>
+        <div class="event" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/%D0%AF%D0%BA%D1%83%D1%82%D1%81%D0%BA%2C_1878.jpg/1280px-%D0%AF%D0%BA%D1%83%D1%82%D1%81%D0%BA%2C_1878.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail" onclick="toggle(this)"><div class="event-head"><span class="event-year">1743</span><span class="event-title">Якутск — официальный город</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Якутск получил статус города и герб: два мамонта, несущих щит. Слоновая кость мамонта из вечной мерзлоты стала ценным экспортным товаром взамен оскудевших меховых ресурсов.</p></div></div>
+        <div class="event" data-image="https://yakutia24.ru/images/users/Alexey/2023/11/16/3.jpg" onclick="toggle(this)"><div class="event-head"><span class="event-year">XVIII в.</span><span class="event-title">Массовая христианизация края</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Православные миссионеры обратили большинство коренного населения. Одновременно создавалась письменность на якутском языке и открывались первые школы.</p></div></div>
+        <div class="event" data-image="https://static.keskil14.ru/uploads/2020/10/21_28_Chernishevskiy_018_13-768x643.jpg" onclick="toggle(this)"><div class="event-head"><span class="event-year">XIX в.</span><span class="event-title">Якутия — край политической ссылки</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Декабристы, польские повстанцы, народники, будущие большевики прошли через Якутию. Ссыльный Вацлав Серошевский написал фундаментальный труд о народе саха, Пекарский — словарь якутского языка.</p></div></div>
+        <div class="event" data-image="https://upload.wikimedia.org/wikipedia/commons/a/ac/%D0%9E%D0%BA%D1%80%D1%83%D0%B6%D0%BD%D0%BE%D0%B9_%D1%81%D1%83%D0%B4_%D0%AF%D0%BA%D1%83%D1%82%D1%81%D0%BA.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" onclick="toggle(this)"><div class="event-head"><span class="event-year">1889</span><span class="event-title">«Якутская трагедия»</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Группа политических ссыльных-народовольцев вступила в вооружённое столкновение с администрацией. Часть расстреляна, часть отправлена на каторгу. Событие потрясло революционные круги всей России.</p></div></div>
       </div>
     </div>
     <div class="scroll-hint"><span>далее</span><div class="hint-arrow"></div></div>
@@ -613,11 +656,12 @@ html[data-theme="light"] .footer-links a:hover img { filter: invert(1) brightnes
         <p class="epoch-desc">Автономия и культурный подъём — и одновременно ГУЛАГ и принудительный труд. Открытие алмазов превратило республику в стратегическую ресурсную базу СССР.</p>
       </div>
       <div class="epoch-right">
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1922</span><span class="event-title">Образование Якутской АССР</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">27 апреля 1922 года ВЦИК принял постановление об ЯАССР. Первое правительство возглавил Платон Ойунский. Якутский язык получил государственный статус, расцвела национальная культура.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1930-е</span><span class="event-title">ГУЛАГ и Колымские лагеря</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Сеть лагерей (Индигирлаг, Янлаг и другие) накрыла республику. Сотни тысяч заключённых добывали золото и уголь в условиях арктического холода. Колыма стала синонимом ГУЛАГа.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1941–1945</span><span class="event-title">Якутия в годы Великой Отечественной</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">На фронт ушло более 60 тысяч якутян, половина не вернулась. Через республику проходила трасса «Алсиб» — по ней перегоняли около 8 тысяч американских самолётов по ленд-лизу.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1954</span><span class="event-title">Открытие кимберлитовой трубки «Мир»</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Геологи Попугаева и Хабардин обнаружили первые алмазы. В Москву ушла телеграмма: «Закурили трубку мира, табак отличный». СССР стал мировым лидером по добыче алмазов.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1970–80-е</span><span class="event-title">Промышленный расцвет и экология</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Строились города Мирный, Нерюнгри, Удачный. Промышленность выросла в 40 раз. Но загрязнялись реки, нарушалась вечная мерзлота и уничтожались традиционные угодья коренных народов.</p></div></div>
+        <div class="epoch-right-bg"></div>
+        <div class="event" data-image="https://nikolaevcentre.ru/uploads/news/img/gallery/6266b4f3e6a54.jpg" onclick="toggle(this)"><div class="event-head"><span class="event-year">1922</span><span class="event-title">Образование Якутской АССР</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">27 апреля 1922 года ВЦИК принял постановление об ЯАССР. Первое правительство возглавил Платон Ойунский. Якутский язык получил государственный статус, расцвела национальная культура.</p></div></div>
+        <div class="event" data-image="https://gdb.rferl.org/5ee37ff2-9c38-4226-8de0-9d60d50b8aa2_cx0_cy28_cw0_w1080_h608_s.jpg" onclick="toggle(this)"><div class="event-head"><span class="event-year">1930-е</span><span class="event-title">ГУЛАГ и Колымские лагеря</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Сеть лагерей (Индигирлаг, Янлаг и другие) накрыла республику. Сотни тысяч заключённых добывали золото и уголь в условиях арктического холода. Колыма стала синонимом ГУЛАГа.</p></div></div>
+        <div class="event" data-image="https://ulus.media/wp-content/uploads/2025/02/truzheniki_tyla_vov-1.jpg" onclick="toggle(this)"><div class="event-head"><span class="event-year">1941–1945</span><span class="event-title">Якутия в годы Великой Отечественной</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">На фронт ушло более 60 тысяч якутян, половина не вернулась. Через республику проходила трасса «Алсиб» — по ней перегоняли около 8 тысяч американских самолётов по ленд-лизу.</p></div></div>
+        <div class="event" data-image="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Mir_mine_%28WR%29.tif/lossy-page1-1280px-Mir_mine_%28WR%29.tif.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail" onclick="toggle(this)"><div class="event-head"><span class="event-year">1954</span><span class="event-title">Открытие кимберлитовой трубки «Мир»</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Геологи Попугаева и Хабардин обнаружили первые алмазы. В Москву ушла телеграмма: «Закурили трубку мира, табак отличный». СССР стал мировым лидером по добыче алмазов.</p></div></div>
+        <div class="event" data-image="https://history-yakutia.ru/media/249/download/%D0%A1%D1%82%D1%80%D0%BE%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D1%82%D0%B2%D0%BE%20%D0%9D%D0%B5%D1%80%D1%8E%D0%BD%D0%B3%D1%80%D0%B8%20%D0%A1.%20409.jpg?v=1" onclick="toggle(this)"><div class="event-head"><span class="event-year">1970–80-е</span><span class="event-title">Промышленный расцвет</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Строились города Мирный, Нерюнгри, Удачный. Промышленность выросла в 40 раз.</p></div></div>
       </div>
     </div>
     <div class="scroll-hint"><span>далее</span><div class="hint-arrow"></div></div>
@@ -633,11 +677,12 @@ html[data-theme="light"] .footer-links a:hover img { filter: invert(1) brightnes
         <p class="epoch-desc">Алмазная держава, самобытный кинематограф и климатический кризис. Якутия сегодня — регион острых контрастов между древними традициями и высокими технологиями.</p>
       </div>
       <div class="epoch-right">
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1990–1992</span><span class="event-title">Декларация о суверенитете и переименование</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">В 1990 году принята Декларация о государственном суверенитете. В 1992 году республика переименована в Республику Саха (Якутия) — впервые историческое самоназвание народа вошло в официальное название.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">1992</span><span class="event-title">Создание АЛРОСА</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Основана алмазодобывающая компания АЛРОСА — совместное владение России и республики. Сегодня обеспечивает около 27% мировой добычи алмазов, являясь крупнейшим в мире производителем.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">2000-е</span><span class="event-title">Феномен «Сахавуд»</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Якутское кино на родном языке начало побеждать на международных фестивалях. Малобюджетные фильмы режиссёров как Дмитрий Давыдов получили признание в Европе и Азии.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">2019–2021</span><span class="event-title">Катастрофические лесные пожары</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">В 2021 году выгорело свыше 8 млн гектаров — рекорд в истории. Дым дошёл до Северного полюса. Таяние вечной мерзлоты разрушает здания и дороги. Якутия — на переднем крае климатического кризиса.</p></div></div>
-        <div class="event" onclick="toggle(this)"><div class="event-head"><span class="event-year">Сегодня</span><span class="event-title">Якутия: между прошлым и будущим</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Древние традиции народа саха, алмазная промышленность, развитие IT и кинематограф мирового уровня — всё это сосуществует в самом холодном обитаемом крае Земли.</p></div></div>
+        <div class="epoch-right-bg"></div>
+        <div class="event" data-image="https://zolord.ru/kartinki4/2020-10-11-16-56.png" onclick="toggle(this)"><div class="event-head"><span class="event-year">1990–1992</span><span class="event-title">Декларация о суверенитете и переименование</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">В 1990 году принята Декларация о государственном суверенитете. В 1992 году республика переименована в Республику Саха (Якутия) — впервые историческое самоназвание народа вошло в официальное название.</p></div></div>
+        <!-- <div class="event" data-image="" onclick="toggle(this)"><div class="event-head"><span class="event-year">1992</span><span class="event-title">Создание АЛРОСА</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Основана алмазодобывающая компания АЛРОСА — совместное владение России и республики. Сегодня обеспечивает около 27% мировой добычи алмазов, являясь крупнейшим в мире производителем.</p></div></div> -->
+        <div class="event" data-image="https://yk24.ru/wp-content/uploads/2025/03/whatsapp-image-2025-03-25-at-20.01.45-scaled.jpeg" onclick="toggle(this)"><div class="event-head"><span class="event-year">2000-е</span><span class="event-title">Феномен «Сахавуд»</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Якутское кино на родном языке начало побеждать на международных фестивалях. Малобюджетные фильмы режиссёров как Дмитрий Давыдов получили признание в Европе и Азии.</p></div></div>
+        <div class="event" data-image="https://s0.rbk.ru/v6_top_pics/media/img/4/37/756265811952374.jpg" onclick="toggle(this)"><div class="event-head"><span class="event-year">2019–2021</span><span class="event-title">Катастрофические лесные пожары</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">В 2021 году выгорело свыше 8 млн гектаров — рекорд в истории. Дым дошёл до Северного полюса. Таяние вечной мерзлоты разрушает здания и дороги. Якутия — на переднем крае климатического кризиса.</p></div></div>
+        <div class="event" data-image="https://avatars.mds.yandex.net/get-vertis-journal/3934100/ugc-image_1727758763800/orig" onclick="toggle(this)"><div class="event-head"><span class="event-year">Сегодня</span><span class="event-title">Якутия: между прошлым и будущим</span><span class="event-arrow">▼</span></div><div class="event-body"><p class="event-text">Древние традиции народа саха, алмазная промышленность, развитие IT и кинематограф мирового уровня — всё это сосуществует в самом холодном обитаемом крае Земли.</p></div></div>
       </div>
     </div>
     <div class="scroll-hint"><span>далее</span><div class="hint-arrow"></div></div>
@@ -703,8 +748,19 @@ document.addEventListener('keydown', e => {
 
 function toggle(el) {
   const open = el.classList.contains('open');
-  el.closest('.epoch-right').querySelectorAll('.event.open').forEach(e => e.classList.remove('open'));
-  if (!open) el.classList.add('open');
+  const right = el.closest('.epoch-right');
+  const bg = right.querySelector('.epoch-right-bg');
+  right.querySelectorAll('.event.open').forEach(e => e.classList.remove('open'));
+
+  if (!open) {
+    el.classList.add('open');
+    if (bg && el.dataset.image) {
+      bg.style.backgroundImage = `url(${el.dataset.image})`;
+      bg.style.opacity = '0.4';
+    }
+  } else {
+    if (bg) bg.style.opacity = '0';
+  }
 }
 </script>
 </body>
