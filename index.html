@@ -763,5 +763,61 @@ function toggle(el) {
   }
 }
 </script>
+
+<canvas id="spark-canvas" style="
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+"></canvas>
+
+<script>
+  const canvas = document.getElementById('spark-canvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  const particles = [];
+
+  document.addEventListener('click', (e) => {
+    for (let i = 0; i < 10; i++) {
+      const angle = (Math.PI * 2 / 10) * i;
+      particles.push({
+        x: e.clientX,
+        y: e.clientY,
+        vx: Math.cos(angle) * (2 + Math.random() * 3),
+        vy: Math.sin(angle) * (2 + Math.random() * 3),
+        life: 1,
+        size: 3 + Math.random() * 2,
+        color: `hsl(${40 + Math.random() * 20}, 90%, 60%)`
+      });
+    }
+  });
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.1; // гравитация
+      p.life -= 0.03;
+      if (p.life <= 0) { particles.splice(i, 1); continue; }
+      ctx.globalAlpha = p.life;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(animate);
+  }
+  animate();
+</script>
 </body>
 </html>
